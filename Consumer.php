@@ -83,6 +83,11 @@ class KafKa_Consumer {
      */
     public function consume() {
         $message = $this->topic->consume($this->partition, $this->timeout * 1000);
+
+	if (empty($message)) {
+	    return null;
+	}
+
         switch ($message->err) {
             case RD_KAFKA_RESP_ERR_NO_ERROR:
                 return $message;
